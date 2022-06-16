@@ -6,7 +6,7 @@
 /*   By: ctherin <ctherin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:56:01 by ctherin           #+#    #+#             */
-/*   Updated: 2022/06/16 03:46:34 by ctherin          ###   ########.fr       */
+/*   Updated: 2022/06/16 03:56:27 by ctherin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*ft_add_data(char *tmp, int fd)
 	int		rd_len;
 
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buf)
+		return (NULL);
 	rd_len = read(fd, buf, BUFFER_SIZE);
 	if (rd_len == -1)
 	{
