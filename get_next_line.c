@@ -6,11 +6,21 @@
 /*   By: ctherin <ctherin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:56:01 by ctherin           #+#    #+#             */
-/*   Updated: 2022/06/16 04:07:13 by ctherin          ###   ########.fr       */
+/*   Updated: 2022/06/16 22:26:16 by ctherin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"get_next_line.h"
+
+char	*ft_clear(char **ptr)
+{
+	if (*ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
+	return (NULL);
+}
 
 void	ft_terminate(char *buf, int rd_len)
 {
@@ -81,7 +91,7 @@ char	*get_next_line(int fd)
 	tmp = persistent;
 	ln = ft_get_line(persistent, &ln_end);
 	if (!ln)
-		return (NULL);
+		return (ft_clear(&persistent));
 	persistent = ft_strdup((char *)(persistent + ln_end + 1));
 	free(tmp);
 	if (!persistent)

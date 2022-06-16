@@ -6,7 +6,7 @@
 /*   By: ctherin <ctherin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:56:05 by ctherin           #+#    #+#             */
-/*   Updated: 2022/06/16 03:39:20 by ctherin          ###   ########.fr       */
+/*   Updated: 2022/06/16 22:21:39 by ctherin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include<unistd.h>
 
 # define EOF_CHAR 0x4
+# define MAX_FD 65535
 
+char	*ft_clear(char **ptr, int fd);
 void	ft_terminate(char *buf, int rd_len);
 char	*ft_add_data(char *tmp, int fd);
 char	*ft_get_line(char *persistent, int *ln_end);

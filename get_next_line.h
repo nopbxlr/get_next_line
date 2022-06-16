@@ -6,7 +6,7 @@
 /*   By: ctherin <ctherin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:56:05 by ctherin           #+#    #+#             */
-/*   Updated: 2022/06/16 03:31:36 by ctherin          ###   ########.fr       */
+/*   Updated: 2022/06/16 22:25:12 by ctherin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define EOF_CHAR 0x4
 
+char	*ft_clear(char **ptr);
 void	ft_terminate(char *buf, int rd_len);
 char	*ft_add_data(char *tmp, int fd);
 char	*ft_get_line(char *persistent, int *ln_end);
