@@ -6,35 +6,34 @@
 /*   By: ctherin <ctherin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:56:01 by ctherin           #+#    #+#             */
-/*   Updated: 2022/06/13 23:38:46 by ctherin          ###   ########.fr       */
+/*   Updated: 2022/06/16 03:35:27 by ctherin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"get_next_line.h"
 
-void	ft_eof(char	*s)
+void	ft_terminate(char *buf, int rd_len)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < BUFFER_SIZE)
-	{
-		if (!s[i])
-			s[i] = 0xFF;
-		i++;
-	}
+	buf[rd_len] = EOF_CHAR;
+	buf[rd_len + 1] = '\0';
 }
 
 char	*ft_add_data(char *tmp, int fd)
 {
 	char	*new;
 	char	*buf;
-	size_t	rd_len;
+	int		rd_len;
 
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	rd_len = read(fd, buf, BUFFER_SIZE);
-	ft_eof(buf);
+	if (rd_len == -1)
+	{
+		free(buf);
+		return (NULL);
+	}
 	buf[rd_len] = '\0';
+	if (rd_len < BUFFER_SIZE)
+		ft_terminate(buf, rd_len);
 	if (tmp)
 	{
 		new = ft_strjoin(tmp, buf);
@@ -46,21 +45,39 @@ char	*ft_add_data(char *tmp, int fd)
 	return (new);
 }
 
+char	*ft_get_line(char *persistent, int *ln_end)
+{
+	if (persistent[--*ln_end] == EOF_CHAR)
+	{
+		persistent[*ln_end] = '\0';
+		if (*ln_end > 0)
+			return (ft_substr(persistent, 0, *ln_end + 1));
+		else
+			return (NULL);
+	}
+	else
+		return (ft_substr(persistent, 0, *ln_end + 1));
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*persistent;
 	char		*ln;
 	char		*tmp;
-	size_t		ln_end;
+	int			ln_end;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	ln_end = ft_has_ending(persistent);
-	while (!ln_end)
+	while (ln_end == 0)
 	{
 		persistent = ft_add_data(persistent, fd);
+		if (!persistent)
+			return (NULL);
 		ln_end = ft_has_ending(persistent);
 	}
 	tmp = persistent;
-	ln = ft_substr(persistent, 0, ln_end + 1);
+	ln = ft_get_line(persistent, &ln_end);
 	persistent = ft_strdup((char *)(persistent + ln_end + 1));
 	free(tmp);
 	return (ln);
@@ -73,7 +90,13 @@ char	*get_next_line(int fd)
 int main()
 {
 	int fd = open("test.txt", O_RDONLY);
-	for (int i = 0; i < 10; i++)
-		printf("%s", get_next_line(fd));
+	char *str;
+	for (int i = 0; i < 15; i++)
+	{
+		str = get_next_line(fd);
+		printf("ln %d, %s\n", i, str);
+		free(str);
+	}
 	return 0;
-}*/
+}
+*/

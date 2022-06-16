@@ -6,7 +6,7 @@
 /*   By: ctherin <ctherin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:55:57 by ctherin           #+#    #+#             */
-/*   Updated: 2022/06/13 23:17:54 by ctherin          ###   ########.fr       */
+/*   Updated: 2022/06/16 03:31:50 by ctherin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (NULL);
 }
 
-size_t	ft_has_ending(char *s)
+int	ft_has_ending(char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (!s)
 		return (0);
 	while (s[i])
 	{
-		if (s[i] == '\n' || s[i] == 0xFF)
-			return (i);
+		if (s[i] == '\n' || s[i] == EOF_CHAR)
+			return (i + 1);
 		++i;
 	}
 	return (0);
