@@ -6,7 +6,7 @@
 /*   By: ctherin <ctherin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:56:01 by ctherin           #+#    #+#             */
-/*   Updated: 2022/06/16 03:56:27 by ctherin          ###   ########.fr       */
+/*   Updated: 2022/06/16 04:07:42 by ctherin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,12 @@ char	*get_next_line(int fd)
 	}
 	tmp = persistent[fd];
 	ln = ft_get_line(persistent[fd], &ln_end);
+	if (!ln)
+		return (NULL);
 	persistent[fd] = ft_strdup((char *)(persistent[fd] + ln_end + 1));
 	free(tmp);
+	if (!persistent[fd])
+		return (NULL);
 	return (ln);
 }
 
