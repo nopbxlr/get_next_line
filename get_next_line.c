@@ -6,7 +6,7 @@
 /*   By: ctherin <ctherin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:56:01 by ctherin           #+#    #+#             */
-/*   Updated: 2022/06/16 22:26:16 by ctherin          ###   ########.fr       */
+/*   Updated: 2022/06/17 17:19:56 by ctherin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,3 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (ln);
 }
-
-/*#include<stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-int main()
-{
-	int fd = open("test.txt", O_RDONLY);
-	char *str;
-	for (int i = 0; i < 15; i++)
-	{
-		str = get_next_line(fd);
-		printf("ln %d, %s\n", i, str);
-		free(str);
-	}
-	return 0;
-}
-*/
